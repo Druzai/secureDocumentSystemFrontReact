@@ -43,18 +43,11 @@ export class AES {
             for (let i = 0; i < arrayBuffer.length; i++) {
                 text.push(arrayBuffer[i]);
             }
-
-            // text = this.toUTF8Array(text);
-            // text = [...Buffer.from(text, 'utf-8')]
-            // const buffer = new Buffer()
-            // @ts-ignore
-            // text = Array.from([...text].map(i => i.charCodeAt(0)))
         }
         let result: number[] = [];
         for (let i = 0; i < text.length; i += BLOCK_LENGTH) {
             result.push(...this.encryptBlock(text.slice(i, i + BLOCK_LENGTH)))
         }
-        // todo
         return this.arrayToBase64(result);
     }
 
@@ -167,13 +160,6 @@ export class AES {
         let result = new Array(16);
         for (let i = 0; i < 4; i++) {
             for (let j = 0; j < N_B; j++) {
-                /*
-                const num: number = state[N_B * i + j];
-                if (num < 128)
-                    result[i + 4 * j] = num;
-                else
-                    result[i + 4 * j] = num - 256;
-                */
                 result[i + 4 * j] = state[N_B * i + j];
             }
         }

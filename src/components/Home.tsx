@@ -1,19 +1,15 @@
-import React, {Fragment, useEffect, useState} from "react";
+import React, {Fragment, useState} from "react";
 import classes from "./all.module.css";
 import {AES} from "./aes";
-
-const baseURL = "http://localhost:8080/api"
-
-async function queryGetKey() {
-    return fetch(`${baseURL}/aes/key`, {
-        method: "GET"
-    }).then(data => data.text());
-}
+import Constants from "./util/constants";
+import baseApiURL = Constants.baseApiURL;
+import {getAuthorizationBearer, getUserKey} from "./util/utilities";
 
 async function queryPostText(text: string, toEncode: boolean = false) {
     const headers = new Headers();
     headers.append("Content-Type", "application/json");
-    return fetch(`${baseURL}/aes/text`, {
+    headers.append("Authorization", getAuthorizationBearer());
+    return fetch(`${baseApiURL}/aes/text`, {
         method: "POST",
         headers: headers,
         body: JSON.stringify({
@@ -21,29 +17,17 @@ async function queryPostText(text: string, toEncode: boolean = false) {
             'toEncode': toEncode
         })
     })
-        .then(response => response.text())
+        .then(response => response.json())
+        .then(json => json["result"]["message"]);
 }
 
 function Home() {
-    const [key, setKey] = useState('');
     const [message, setMessage] = useState('');
-
-    const getKey = async () => {
-        try {
-            const key = await queryGetKey();
-            console.log(key);
-            setKey(key)
-        } catch (err) {
-            if (err instanceof Error) {
-                console.error(err.message);
-            }
-        }
-    }
 
     const onSubmitForm = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         try {
-            const aes = new AES(key);
+            const aes = new AES(getUserKey() || "");
             const encryptedMsg = aes.encrypt(message);
             const text = await queryPostText(encryptedMsg, false);
             console.log(text);
@@ -58,7 +42,7 @@ function Home() {
     const onSubmitFormDec = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         try {
-            const aes = new AES(key);
+            const aes = new AES(getUserKey() || "");
             const encryptedMsg = await queryPostText(message, true);
             const msg = aes.decrypt(encryptedMsg);
             console.log(msg);
@@ -69,10 +53,6 @@ function Home() {
             }
         }
     };
-
-    useEffect(() => {
-        getKey();
-    }, []);
 
     return (
         <Fragment>

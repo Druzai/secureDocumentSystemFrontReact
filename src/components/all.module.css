@@ -35,3 +35,9 @@
 .btn {
     margin-left: 10px;
 }
+
+.flexHorizontal {
+    display: flex;
+    flex: auto;
+    flex-flow: row;
+}

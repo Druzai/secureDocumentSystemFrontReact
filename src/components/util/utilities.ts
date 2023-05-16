@@ -12,11 +12,11 @@ export async function checkIfLoggedIn() {
             headers: headers
         });
         if (response.status === 401) {
-            return false;
+            return null;
         }
         const json = await response.json();
         if (response.ok && json["result"] != null) {
-            return true;
+            return json["result"]["username"];
         }
     }
     return await refreshTokens();
@@ -25,7 +25,7 @@ export async function checkIfLoggedIn() {
 export async function refreshTokens() {
     const refreshToken = localStorage.getItem("refreshToken");
     if (refreshToken == null) {
-        return false;
+        return null;
     }
     const headers = new Headers();
     headers.append("Content-Type", "application/json");
@@ -35,15 +35,15 @@ export async function refreshTokens() {
         headers: headers
     });
     if (response.status === 401) {
-        return false;
+        return null;
     }
     const json = await response.json();
     if (response.ok && json["result"] != null) {
         localStorage.setItem("accessToken", json["result"]["accessToken"]);
         localStorage.setItem("refreshToken", json["result"]["refreshToken"]);
-        return true;
+        return json["result"]["username"];
     }
-    return false;
+    return null;
 }
 
 export function getAuthorizationBearer() {

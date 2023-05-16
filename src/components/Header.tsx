@@ -1,31 +1,22 @@
 import classes from "./all.module.css";
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {NavLink} from "react-router-dom";
 import {checkIfLoggedIn} from "./util/utilities";
-
-class Element {
-    name: string;
-    link: string;
-
-    constructor(name: string, link: string) {
-        this.name = name;
-        this.link = link;
-    }
-}
+import {useDispatch, useSelector} from "react-redux";
+import allActions from '../actions';
 
 function Header() {
-    const [elements, setElements] = useState([
-        new Element("Войти", "/login"),
-        new Element("Зарегистрироваться", "/registration")
-    ]);
+    const dispatch = useDispatch();
+    // @ts-ignore
+    const currentLogin = useSelector(state => state.currentLogin);
 
     const getAuth = async () => {
-        const auth = await checkIfLoggedIn();
+        const username = await checkIfLoggedIn();
 
-        if (auth) {
-            let newElements = [];
-            newElements.push(new Element("Выйти", "/logout"));
-            setElements(newElements);
+        if (username != null){
+            dispatch(allActions.loginActions.setUser({username: username}));
+        } else {
+            dispatch(allActions.loginActions.logOut());
         }
     };
 
@@ -46,11 +37,24 @@ function Header() {
                 </div>
                 <div className={`container ${classes.container}`}>
                     {
-                        elements.map(e => {
-                            return <NavLink className={`navbar-brand ${classes.par} ${classes.links}`} to={e.link}>
-                                {e.name}
-                            </NavLink>
-                        })
+                        currentLogin.loggedIn ?
+                            <>
+                                <NavLink className={`navbar-brand ${classes.par} ${classes.links}`} to="/me">
+                                    {currentLogin.user.username}
+                                </NavLink>
+                                <NavLink className={`navbar-brand ${classes.par} ${classes.links}`} to="/logout">
+                                    Выйти
+                                </NavLink>
+                            </>
+                            :
+                            <>
+                                <NavLink className={`navbar-brand ${classes.par} ${classes.links}`} to="/login">
+                                    Войти
+                                </NavLink>
+                                <NavLink className={`navbar-brand ${classes.par} ${classes.links}`} to="/registration">
+                                    Зарегистрироваться
+                                </NavLink>
+                            </>
                     }
                 </div>
             </nav>

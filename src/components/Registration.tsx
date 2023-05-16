@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import Constants from "./util/constants";
 import baseApiURL = Constants.baseApiURL;
-import {Navigate, NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import classes from "./all.module.css";
 
 
@@ -34,6 +34,8 @@ const Registration = () => {
     const [password, setPassword] = useState("");
     const [passwordConfirm, setPasswordConfirm] = useState("");
     const [tooltip, setTooltip] = useState("");
+    const navigate = useNavigate();
+
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault()
         if (password !== passwordConfirm) {
@@ -42,7 +44,7 @@ const Registration = () => {
         }
         const auth = await queryPostRegistration(username, password);
         if (auth) {
-            return <Navigate replace to="/login"/>;
+            navigate("/login");
         } else {
             setTooltip("Ошибка! Попробуйте ещё раз!")
         }

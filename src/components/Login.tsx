@@ -4,6 +4,8 @@ import Constants from "./util/constants";
 import baseApiURL = Constants.baseApiURL;
 import {queryGetKey} from "./util/utilities";
 import classes from "./all.module.css";
+import {useDispatch} from "react-redux";
+import allActions from "../actions";
 
 
 async function queryPostSignIn(username: string, password: string) {
@@ -18,16 +20,16 @@ async function queryPostSignIn(username: string, password: string) {
         })
     });
     if (response.status === 401) {
-        return false;
+        return null;
     }
     const json = await response.json();
     if (response.ok) {
         localStorage.setItem("accessToken", json["result"]["accessToken"]);
         localStorage.setItem("refreshToken", json["result"]["refreshToken"]);
-        return true;
+        return json["result"]["username"];
     } else {
         console.error(json["error"]);
-        return false;
+        return null;
     }
 }
 
@@ -37,14 +39,17 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [tooltip, setTooltip] = useState("");
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault()
-        const auth = await queryPostSignIn(username, password);
-        if (auth) {
+        const name = await queryPostSignIn(username, password);
+        if (name != null){
+            dispatch(allActions.loginActions.setUser({username: name}));
             await queryGetKey();
             navigate("/");
         } else {
+            dispatch(allActions.loginActions.logOut());
             // setUsername("");
             // setPassword("");
             setTooltip("Неравильные логин/пароль!")

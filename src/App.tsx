@@ -1,5 +1,5 @@
 import './App.css';
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Route, Routes, useParams} from "react-router-dom";
 import {
     Home,
     About,
@@ -8,8 +8,16 @@ import {
     Login,
     Logout,
     Registration,
+    Users,
+    UserProfile
 } from "./components";
-import {useSelector} from 'react-redux'
+import {useSelector} from 'react-redux';
+
+const UserProfileComponentWrapper = () => {
+    const { userId } = useParams();
+    // @ts-ignore
+    return <UserProfile userId={userId} />;
+};
 
 function App() {
     // @ts-ignore
@@ -18,17 +26,23 @@ function App() {
         return (
             <div className="App">
                 <header className="App-header">
-                        <BrowserRouter>
-                            <Header/>
-                            <Routes>
-                                <Route path="/" element={<Home/>}/>
-                                <Route path="/login" element={<Login/>}/>
-                                <Route path="/logout" element={<Logout/>}/>
-                                <Route path="/registration" element={<Registration/>}/>
-                                <Route path="/about" element={<About/>}/>
-                                <Route path="*" element={<Error/>}/>
-                            </Routes>
-                        </BrowserRouter>
+                    <BrowserRouter>
+                        <Header/>
+                        <Routes>
+                            <Route path="/" element={<Home/>}/>
+                            <Route path="/login" element={<Login/>}/>
+                            <Route path="/logout" element={<Logout/>}/>
+                            <Route path="/registration" element={<Registration/>}/>
+                            <Route path="/about" element={<About/>}/>
+                            <Route path="/users" element={<Users/>}/>
+                            <Route
+                                path='/user/:userId/'
+                                element={<UserProfileComponentWrapper />}
+                            />
+                            {/*<Route path="/user/:userId" element={}/>*/}
+                            <Route path="*" element={<Error/>}/>
+                        </Routes>
+                    </BrowserRouter>
                 </header>
             </div>
         );
@@ -36,15 +50,16 @@ function App() {
         return (
             <div className="App">
                 <header className="App-header">
-                        <BrowserRouter>
-                            <Header/>
-                            <Routes>
-                                <Route path="*" element={<Login/>}/>
-                                <Route path="/logout" element={<Logout/>}/>
-                                <Route path="/registration" element={<Registration/>}/>
-                                <Route path="/about" element={<About/>}/>
-                            </Routes>
-                        </BrowserRouter>
+                    <BrowserRouter>
+                        <Header/>
+                        <Routes>
+                            <Route path="*" element={<Login/>}/>
+                            <Route path="/logout" element={<Logout/>}/>
+                            <Route path="/registration" element={<Registration/>}/>
+                            <Route path="/about" element={<About/>}/>
+                            <Route path="/users" element={<Users/>}/>
+                        </Routes>
+                    </BrowserRouter>
                 </header>
             </div>
         );

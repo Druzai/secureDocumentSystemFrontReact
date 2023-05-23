@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 interface DynamicSelectProps {
     name: string | null;
     value: any;
-    arrayOfData: Array<any> | null;
+    arrayOfData: Array<any> | null | undefined;
     onSelectChange: any;
 }
 

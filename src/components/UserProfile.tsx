@@ -87,7 +87,7 @@ const UserProfile = (props: { userId: number; }) => {
                     )
             }
             {
-                userInfo !== undefined && userInfo.documents !== null && userInfo.documents.length !== 0
+                userInfo !== undefined && userInfo.documents !== null && userInfo.documents.length !== 0 && !userInfo.me
                     ? <form className="d-flex mt-5" onSubmit={handleSubmit}>
                         <label>Документ:
                             <DynamicSelect
@@ -102,7 +102,12 @@ const UserProfile = (props: { userId: number; }) => {
                             <DynamicSelect
                                 name={"documentSelect"}
                                 value={roleId}
-                                arrayOfData={userInfo.allRoles}
+                                arrayOfData={userInfo.allRoles?.map(r => {
+                                    return {
+                                        id: r.id,
+                                        name: r.userName
+                                   };
+                                })}
                                 onSelectChange={(value: number) => setRoleId(value)}
                             />
                         </label>

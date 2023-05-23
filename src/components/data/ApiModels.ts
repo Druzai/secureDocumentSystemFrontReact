@@ -7,6 +7,9 @@ export class Role {
 
     @jsonMember(String)
     name: string = "";
+
+    @jsonMember(String)
+    userName: string = "";
 }
 
 @jsonObject

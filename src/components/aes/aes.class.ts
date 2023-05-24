@@ -77,9 +77,13 @@ export class AES {
         for (let i = 0; i < text.length; i += BLOCK_LENGTH) {
             result.push(...this.decryptBlock(text.slice(i, i + BLOCK_LENGTH)))
         }
-        while (result[result.length - 1] === 0) {
-            result.pop();
+        let sliceI = 1
+        while (result[result.length - sliceI - 1] === 0) {
+            sliceI++;
         }
+        if (sliceI % 2 !== 0)
+            sliceI--;
+        result = result.slice(0, result.length - sliceI);
         return new Buffer(result).toString('utf16le').trim();
     }
 

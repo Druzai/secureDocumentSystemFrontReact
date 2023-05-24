@@ -11,7 +11,8 @@ import {
     Users,
     UserProfile,
     Documents,
-    MyUser
+    MyUser,
+    NewDocument
 } from "./components";
 import {useSelector} from 'react-redux';
 
@@ -43,6 +44,7 @@ function App() {
                             />
                             <Route path="/documents" element={<Documents/>}/>
                             <Route path="/me" element={<MyUser/>}/>
+                            <Route path="/newDocument" element={<NewDocument/>}/>
                             <Route path="*" element={<Error/>}/>
                         </Routes>
                     </BrowserRouter>

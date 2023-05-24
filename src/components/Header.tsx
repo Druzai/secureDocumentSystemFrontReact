@@ -34,6 +34,9 @@ function Header() {
                     <NavLink className={`nav-link ${classes.par} ${classes.links}`} to="/documents">
                         Все документы
                     </NavLink>
+                    <NavLink className={`nav-link ${classes.par} ${classes.links}`} to="/newDocument">
+                        Новый документ
+                    </NavLink>
                     <NavLink className={`nav-link ${classes.par} ${classes.links}`} to="/users">
                         Все пользователи
                     </NavLink>

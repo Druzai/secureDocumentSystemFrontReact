@@ -50,3 +50,18 @@ export class UserInfo {
     @jsonMember(String)
     username: string = "";
 }
+
+@jsonObject
+export class DocumentInfo {
+    @jsonMember(Number)
+    id: number = -1;
+
+    @jsonMember(String)
+    name: string = "";
+
+    @jsonMember(String)
+    lastEditBy: string = "";
+
+    @jsonMember(User)
+    owner: User | null = null;
+}

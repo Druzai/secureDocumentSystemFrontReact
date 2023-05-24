@@ -10,7 +10,8 @@ import {
     Registration,
     Users,
     UserProfile,
-    Documents
+    Documents,
+    MyUser
 } from "./components";
 import {useSelector} from 'react-redux';
 
@@ -41,6 +42,7 @@ function App() {
                                 element={<UserProfileComponentWrapper />}
                             />
                             <Route path="/documents" element={<Documents/>}/>
+                            <Route path="/me" element={<MyUser/>}/>
                             <Route path="*" element={<Error/>}/>
                         </Routes>
                     </BrowserRouter>

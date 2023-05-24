@@ -8,3 +8,4 @@ export {default as Registration} from "./Registration";
 export {default as Users} from "./Users";
 export {default as UserProfile} from "./UserProfile";
 export {default as Documents} from "./Documents";
+export {default as MyUser} from "./MyUser";

@@ -52,6 +52,19 @@ export class UserInfo {
 }
 
 @jsonObject
+export class MyUserInfo {
+
+    @jsonArrayMember(Role)
+    myRoles: Array<Role> | null = null;
+
+    @jsonArrayMember(Role)
+    allRoles: Array<Role> | null = null;
+
+    @jsonMember(String)
+    username: string = "";
+}
+
+@jsonObject
 export class DocumentInfo {
     @jsonMember(Number)
     id: number = -1;

@@ -70,7 +70,6 @@ const UserProfile = (props: { userId: number; }) => {
 
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault()
-        alert(documentId + " " + roleId);
         await queryPostUserRight(parseInt(String(documentId)), parseInt(String(roleId)), parseInt(String(props.userId)));
     };
 

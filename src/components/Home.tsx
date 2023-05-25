@@ -13,12 +13,12 @@ async function queryPostText(text: string, toEncode: boolean = false) {
         method: "POST",
         headers: headers,
         body: JSON.stringify({
-            'textMessage': text,
+            'text': text,
             'toEncode': toEncode
         })
     })
         .then(response => response.json())
-        .then(json => json["result"]["message"]);
+        .then(json => json["result"]["text"]);
 }
 
 function Home() {

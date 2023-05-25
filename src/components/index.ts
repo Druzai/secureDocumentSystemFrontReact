@@ -10,3 +10,4 @@ export {default as UserProfile} from "./UserProfile";
 export {default as Documents} from "./Documents";
 export {default as MyUser} from "./MyUser";
 export {default as NewDocument} from "./NewDocument";
+export {default as DocumentEditor} from "./DocumentEditor";

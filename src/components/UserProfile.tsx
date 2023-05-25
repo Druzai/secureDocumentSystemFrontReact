@@ -6,7 +6,7 @@ import {TypedJSON} from "typedjson";
 import DynamicSelect from "./util/DynamicSelect";
 import {UserInfo} from "./data/ApiModels";
 
-const UserProfile = (props: { userId: number; }) => {
+const UserProfile = (props: { userId: string; }) => {
     const [userInfo, setUserInfo] = useState<UserInfo>();
     const [error, setError] = useState("");
     const [documentId, setDocumentId] = useState(0);
@@ -37,7 +37,7 @@ const UserProfile = (props: { userId: number; }) => {
         }
     }
 
-    async function queryGetUser(userId: number) {
+    async function queryGetUser(userId: string) {
         const headers = new Headers();
         headers.append("Authorization", getAuthorizationBearer());
         const response = await fetch(`${baseApiURL}/user/${userId}`, {
@@ -70,7 +70,7 @@ const UserProfile = (props: { userId: number; }) => {
 
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault()
-        await queryPostUserRight(parseInt(String(documentId)), parseInt(String(roleId)), parseInt(String(props.userId)));
+        await queryPostUserRight(parseInt(String(documentId)), parseInt(String(roleId)), parseInt(props.userId));
     };
 
     return (
@@ -88,17 +88,16 @@ const UserProfile = (props: { userId: number; }) => {
             {
                 userInfo !== undefined && userInfo.documents !== null && userInfo.documents.length !== 0 && !userInfo.me
                     ? <form className="d-flex mt-5" onSubmit={handleSubmit}>
-                        <label>Документ:
-                            <DynamicSelect
+                        <label>Документ: <DynamicSelect
                                 name={"documentSelect"}
                                 value={documentId}
                                 arrayOfData={userInfo.documents}
                                 onSelectChange={(value: number) => setDocumentId(value)}
+                                disabled={false}
                             />
                         </label>
                         <br/>
-                        <label>Роль:
-                            <DynamicSelect
+                        <label>Роль: <DynamicSelect
                                 name={"documentSelect"}
                                 value={roleId}
                                 arrayOfData={userInfo.allRoles?.map(r => {
@@ -108,6 +107,7 @@ const UserProfile = (props: { userId: number; }) => {
                                    };
                                 })}
                                 onSelectChange={(value: number) => setRoleId(value)}
+                                disabled={false}
                             />
                         </label>
                         <br/>

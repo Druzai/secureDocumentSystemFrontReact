@@ -12,7 +12,8 @@ import {
     UserProfile,
     Documents,
     MyUser,
-    NewDocument
+    NewDocument,
+    DocumentEditor
 } from "./components";
 import {useSelector} from 'react-redux';
 
@@ -20,6 +21,12 @@ const UserProfileComponentWrapper = () => {
     const { userId } = useParams();
     // @ts-ignore
     return <UserProfile userId={userId} />;
+};
+
+const DocumentEditorComponentWrapper = () => {
+    const { documentId } = useParams();
+    // @ts-ignore
+    return <DocumentEditor documentId={documentId} />;
 };
 
 function App() {
@@ -45,6 +52,10 @@ function App() {
                             <Route path="/documents" element={<Documents/>}/>
                             <Route path="/me" element={<MyUser/>}/>
                             <Route path="/newDocument" element={<NewDocument/>}/>
+                            <Route
+                                path='/document/:documentId/'
+                                element={<DocumentEditorComponentWrapper />}
+                            />
                             <Route path="*" element={<Error/>}/>
                         </Routes>
                     </BrowserRouter>

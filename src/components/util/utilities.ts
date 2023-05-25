@@ -1,5 +1,6 @@
 import Constants from "./constants";
 import baseApiURL = Constants.baseApiURL;
+import {AES} from "../aes";
 
 export async function checkIfLoggedIn() {
     const accessToken = localStorage.getItem("accessToken");
@@ -73,4 +74,29 @@ export async function queryGetKey() {
 
 export function getUserKey() {
     return localStorage.getItem("userKey");
+}
+
+export async function queryGetDocumentKey(documentId: number | string) {
+    const headers = new Headers();
+    headers.append("Authorization", getAuthorizationBearer());
+    const response = await fetch(`${baseApiURL}/document/${documentId}/wsKey`, {
+        method: "GET",
+        headers: headers
+    });
+    if (response.status === 401) {
+        return false;
+    }
+    const json = await response.json();
+    if (response.ok) {
+        let cipher = new AES(getUserKey() ?? "");
+        localStorage.setItem("documentKey", cipher.decrypt(json["result"]["documentWsKey"] ?? ""));
+        return true;
+    } else {
+        console.error(json["error"]);
+        return false;
+    }
+}
+
+export function getDocumentKey() {
+    return localStorage.getItem("documentKey");
 }

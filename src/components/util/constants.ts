@@ -7,7 +7,7 @@ namespace Constants {
 
     export const webSocketTopicListen = "/topic/messages";
     export const webSocketMessageSend = "/app/send";
-    export const webSocketURL = `http://${baseDomainName}:${basePort}/message-ws`;
+    export const webSocketURL = `ws://${baseDomainName}:${basePort}/message-ws/websocket`;
 }
 
 export default Constants;

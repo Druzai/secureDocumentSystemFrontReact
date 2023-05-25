@@ -11,8 +11,6 @@ import {TypedJSON} from "typedjson";
 import {DocumentIdEditor, ParagraphInfo, WSContent, WSMessage} from "./data/ApiModels";
 import {AES} from "./aes";
 // @ts-ignore
-import SockJS from 'sockjs-client';
-// @ts-ignore
 import Stomp from 'stompjs';
 import DynamicSelect from "./util/DynamicSelect";
 import {useSelector} from "react-redux";
@@ -59,7 +57,7 @@ const DocumentEditor = (props: { documentId: string; }) => {
     })();
 
     function setUpStompClient() {
-        let socket = new SockJS(Constants.webSocketURL);
+        let socket = new WebSocket(Constants.webSocketURL);
         let stompCl = Stomp.over(socket);
         const editorHtml = editor.current;
         stompCl.connect({}, function (frame: string) {

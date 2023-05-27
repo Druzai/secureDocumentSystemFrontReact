@@ -2,7 +2,6 @@ import './App.css';
 import {BrowserRouter, Route, Routes, useParams} from "react-router-dom";
 import {
     Home,
-    About,
     Error,
     Header,
     Login,
@@ -13,7 +12,9 @@ import {
     Documents,
     MyUser,
     NewDocument,
-    DocumentEditor
+    DocumentEditor,
+    PasswordDocument,
+    DocumentSetPasswordId
 } from "./components";
 import {useSelector} from 'react-redux';
 
@@ -27,6 +28,12 @@ const DocumentEditorComponentWrapper = () => {
     const { documentId } = useParams();
     // @ts-ignore
     return <DocumentEditor documentId={documentId} />;
+};
+
+const DocumentSetPasswordComponentWrapper = () => {
+    const { documentId } = useParams();
+    // @ts-ignore
+    return <DocumentSetPasswordId documentId={documentId} />;
 };
 
 function App() {
@@ -43,7 +50,6 @@ function App() {
                             <Route path="/login" element={<Login/>}/>
                             <Route path="/logout" element={<Logout/>}/>
                             <Route path="/registration" element={<Registration/>}/>
-                            <Route path="/about" element={<About/>}/>
                             <Route path="/users" element={<Users/>}/>
                             <Route
                                 path='/user/:userId/'
@@ -52,9 +58,14 @@ function App() {
                             <Route path="/documents" element={<Documents/>}/>
                             <Route path="/me" element={<MyUser/>}/>
                             <Route path="/newDocument" element={<NewDocument/>}/>
+                            <Route path="/passwordDocument" element={<PasswordDocument/>}/>
                             <Route
                                 path='/document/:documentId/'
                                 element={<DocumentEditorComponentWrapper />}
+                            />
+                            <Route
+                                path='/document/:documentId/setPassword'
+                                element={<DocumentSetPasswordComponentWrapper />}
                             />
                             <Route path="*" element={<Error/>}/>
                         </Routes>
@@ -72,7 +83,7 @@ function App() {
                             <Route path="*" element={<Login/>}/>
                             <Route path="/logout" element={<Logout/>}/>
                             <Route path="/registration" element={<Registration/>}/>
-                            <Route path="/about" element={<About/>}/>
+                            <Route path="/" element={<Home/>}/>
                             <Route path="/users" element={<Users/>}/>
                         </Routes>
                     </BrowserRouter>

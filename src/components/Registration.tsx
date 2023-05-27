@@ -54,7 +54,7 @@ const Registration = () => {
         <div>
             <h3 className="text-center mt-5">Зарегистрироваться в системе</h3>
             <form className="d-flex mt-5" onSubmit={handleSubmit}>
-                <label>Логин</label>
+                <label style={{paddingRight: "5px"}}>Логин</label>
                 <input
                     type="text"
                     name="Username"
@@ -62,14 +62,14 @@ const Registration = () => {
                     onChange={(e) => setUsername(e.target.value)}
                 />
                 <br/>
-                <label>Пароль</label>
+                <label style={{paddingRight: "5px"}}>Пароль</label>
                 <input
                     type="password"
                     name="Password"
                     onChange={(e) => setPassword(e.target.value)}
                 />
                 <br/>
-                <label>Подтверждение пароля</label>
+                <label style={{paddingRight: "5px"}}>Подтверждение пароля</label>
                 <input
                     type="password"
                     name="PasswordConfirm"

@@ -37,11 +37,11 @@ function Header() {
                     <NavLink className={`nav-link ${classes.par} ${classes.links}`} to="/newDocument">
                         Новый документ
                     </NavLink>
+                    <NavLink className={`nav-link ${classes.par} ${classes.links}`} to="/passwordDocument">
+                        Документ по паролю
+                    </NavLink>
                     <NavLink className={`nav-link ${classes.par} ${classes.links}`} to="/users">
                         Все пользователи
-                    </NavLink>
-                    <NavLink className={`nav-link ${classes.par} ${classes.links}`} to="/about">
-                        О проекте
                     </NavLink>
                 </div>
                 <div className={`container ${classes.container}`}>

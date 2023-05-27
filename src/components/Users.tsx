@@ -39,7 +39,7 @@ const Users = () => {
                 users.length === 0
                     ? <h4>Нету пользователей!</h4>
                     : users.map(u => {
-                        return <div className="mt-2 card bg-light justify-content-center align-items-center">
+                        return <div className="mt-2 card bg-light justify-content-center align-items-center" style={{backgroundColor: "#295a4e", borderRadius: "10px"}}>
                             <h2>Ник: {u["username"]}</h2>
                             <NavLink className={`nav-link ${classes.par} ${classes.links}`} to={`/user/${u["id"]}`}>
                                 Подробнее

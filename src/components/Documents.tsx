@@ -48,11 +48,14 @@ const Documents = () => {
                 documents.length === 0
                     ? <h4>Нету документов!</h4>
                     : documents.map(d => {
-                        return <div className="mt-2 card bg-light justify-content-center align-items-center">
+                        return <div className="mt-2 card bg-light justify-content-center align-items-center" style={{backgroundColor: "#295a4e", borderRadius: "10px"}}>
                             <h2>Название: {d.name}</h2>
                             <h3>Автор: {d.owner?.username ?? "unknown"}</h3>
                             <NavLink className={`nav-link ${classes.par} ${classes.links}`} to={`/document/${d.id}`}>
-                                Подробнее
+                                Открыть
+                            </NavLink>
+                            <NavLink className={`nav-link ${classes.par} ${classes.links}`} to={`/document/${d.id}/setPassword`}>
+                                Задать пароль
                             </NavLink>
                         </div>
                     })

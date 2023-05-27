@@ -60,7 +60,7 @@ const Login = () => {
         <div>
             <h3 className="text-center mt-5">Войти в систему</h3>
             <form className="d-flex mt-5" onSubmit={handleSubmit}>
-                <label>Логин</label>
+                <label style={{paddingRight: "5px"}}>Логин</label>
                 <input
                     type="text"
                     name="Username"
@@ -68,7 +68,7 @@ const Login = () => {
                     onChange={(e) => setUsername(e.target.value)}
                 />
                 <br/>
-                <label>Пароль</label>
+                <label style={{paddingRight: "5px"}}>Пароль</label>
                 <input
                     type="password"
                     name="Password"

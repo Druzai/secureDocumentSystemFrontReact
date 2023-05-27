@@ -80,6 +80,27 @@ export class DocumentInfo {
 }
 
 @jsonObject
+export class DocumentInfoShort {
+    @jsonMember(Number)
+    id: number = -1;
+
+    @jsonMember(String)
+    name: string = "";
+}
+
+@jsonObject
+export class DocumentPassword {
+    @jsonMember(Number)
+    documentId: number = -1;
+
+    @jsonMember(String)
+    password: string = "";
+
+    @jsonMember(Number)
+    roleId: number | null = -1;
+}
+
+@jsonObject
 export class ParagraphInfo {
     constructor(number: number, content: string, align: string) {
         this.number = number;

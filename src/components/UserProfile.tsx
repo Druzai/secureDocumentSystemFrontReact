@@ -10,6 +10,7 @@ const UserProfile = (props: { userId: string; }) => {
     const [userInfo, setUserInfo] = useState<UserInfo>();
     const [error, setError] = useState("");
     const [documentId, setDocumentId] = useState(0);
+    const [tooltip, setTooltip] = useState("");
     const [roleId, setRoleId] = useState(0);
 
     async function queryPostUserRight(documentId: number, roleId: number, userId: number) {
@@ -30,7 +31,7 @@ const UserProfile = (props: { userId: string; }) => {
         }
         const json = await response.json();
         if (response.ok && json["result"]) {
-            console.log("Done!")
+            setTooltip("Роль успешно изменена!")
         } else {
             console.error(json["error"]);
             setError(json["error"]);
@@ -98,7 +99,7 @@ const UserProfile = (props: { userId: string; }) => {
                         </label>
                         <br/>
                         <label>Роль: <DynamicSelect
-                                name={"documentSelect"}
+                                name={"roleSelect"}
                                 value={roleId}
                                 arrayOfData={userInfo.allRoles?.map(r => {
                                     return {
@@ -116,6 +117,7 @@ const UserProfile = (props: { userId: string; }) => {
                     </form>
                     : <></>
             }
+            <p>{tooltip}</p>
             {
                 error.length > 0
                     ? <h4>{error}</h4>

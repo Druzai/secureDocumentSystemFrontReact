@@ -16,7 +16,6 @@ const DocumentSetPasswordId = (props: { documentId: string; }) => {
 
     const owner = useRef<Boolean>(null);
     const h3Welcome = useRef<HTMLHeadingElement>(null);
-    // const documentName = useState<String>("");
 
     async function queryGetDocument(documentId: string) {
         const headers = new Headers();
@@ -52,7 +51,10 @@ const DocumentSetPasswordId = (props: { documentId: string; }) => {
         }
         const json = await response.json();
         if (response.ok) {
-            const object: Array<Role> = json["result"]["allRoles"].map((r: any) => new TypedJSON(Role).parse(r));
+            let object: Array<Role> = json["result"]["allRoles"].map((r: any) => new TypedJSON(Role).parse(r));
+            if (!owner.current) {
+                object = object.filter(r => r.id !== 4);
+            }
             setRoles(object);
             setRoleId(object[0].id);
             return null;
